@@ -13,6 +13,8 @@ a tool based on ffmpeg that plays video in console!
 
     git clone https://github.com/ee0703/console_video
 
+## usage
+
 ### play video
 
     python player.py badapple.mp4
