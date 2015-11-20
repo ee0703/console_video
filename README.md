@@ -13,4 +13,4 @@ a tool based on ffmpeg that plays video in console!
 
 ### play video
 
-    python player.py video.mp4
+    python player.py badapple.mp4
