@@ -1,7 +1,7 @@
 # console_video
 a tool based on ffmpeg that plays video in console!
 
-[preview](https://github.com/ee0703/console_video/raw/master/example.gif)
+![preview](https://github.com/ee0703/console_video/raw/master/example.gif)
 
 ## installation
 
