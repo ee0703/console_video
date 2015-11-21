@@ -8,14 +8,16 @@ import time
 from PIL import Image
 
 
+# gray scale of chars in 70 grades
+gray_scale = '''$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''
+
+
 def color2char(color):
     """convert glay color value from 0 to 255 to char"""
     index = color/3
     if index >= 69:
         index = 69
-    # gray scale of chars in 70 grades
-    scale = '''$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''
-    return scale[69-index]
+    return gray_scale[69-index]
 
 
 def play(file_path):
