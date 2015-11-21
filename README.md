@@ -9,7 +9,7 @@ a tool based on ffmpeg that plays video in console!
 
      brew install ffmpeg --with-fdk-aac --with-ffplay --with-freetype --with-libass --with-libquvi --with-libvorbis --with-libvpx --with-opus --with-x265
 
- ### install Pillow
+### install Pillow
 
       pip install Pillow
 
