@@ -9,15 +9,9 @@ from PIL import Image
 
 
 # gray scale of chars in 70 grades
-gray_scale = '''$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''
-
-
-def color2char(color):
-    """convert glay color value from 0 to 255 to char"""
-    index = color/3
-    if index >= 69:
-        index = 69
-    return gray_scale[69-index]
+gray_scale = ''' .'`^",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$'''
+gray_scale = ''.join(c*(256//len(gray_scale)) for c in gray_scale)
+gray_scale += gray_scale[-1]*(256-len(gray_scale))
 
 
 def play(file_path):
@@ -35,10 +29,9 @@ def play(file_path):
                     .convert('L')
 
         stdscr.clear()
+        data = ''.join(gray_scale[pix] for pix in image.getdata())
         for h in range(max_h-1):
-            for w in range(max_w):
-                pix = image.getpixel((w, h))
-                stdscr.addch(h, w, color2char(pix))
+            stdscr.addstr(h, 0, data[h*max_w:(h+1)*max_w])
 
         time_eclipsed = time.time() - start_time
         minutes, seconds = time_eclipsed/60, time_eclipsed % 60
