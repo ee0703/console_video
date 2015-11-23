@@ -18,6 +18,20 @@ def play(file_path):
     """play a video file"""
     iv = pipeffmpeg.InputVideoStream()
     iv.open(file_path)
+
+    # Getting the frame rate of the video
+    # Got this from the source code of pipeffmpeg (Can be replaced by Popen)
+    file_info = pipeffmpeg.get_info(file_path)
+
+    try:
+        f_rate = file_info["streams"][0]["r_frame_rate"]
+
+        # Getting the number of seconds for a frame
+        delay = 1.0 / int(f_rate.split("/")[0])
+    except (KeyError, IndexError):
+        # Setting a default delay if frame rate not obtained
+        delay = 0.02
+
     stdscr = curses.initscr()
     max_h, max_w =  stdscr.getmaxyx()
 
@@ -37,6 +51,9 @@ def play(file_path):
         minutes, seconds = time_eclipsed/60, time_eclipsed % 60
         stdscr.addstr(max_h-1, 0, 'Resolution:[%d*%d] Frame:%d Time:[%d:%d]' % (max_w, max_h, i, minutes, seconds))
         stdscr.refresh()
+
+        # Adding a delay
+        time.sleep(delay)
 
     curses.endwin()
 
