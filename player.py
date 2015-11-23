@@ -25,7 +25,6 @@ def play(file_path):
 
     try:
         f_rate = file_info["streams"][0]["r_frame_rate"]
-
         # Getting the number of seconds for a frame
         delay = 1.0 / int(f_rate.split("/")[0])
     except (KeyError, IndexError):
@@ -37,6 +36,8 @@ def play(file_path):
 
     start_time = time.time()
     for i, bmp in enumerate(iv.readframe()):
+        # timestap when frame start
+        frame_start_time = time.time()
         # resize each frame to proper size, and covert to gray
         image = Image.open(StringIO.StringIO(bmp))\
                     .resize((max_w, max_h), Image.ANTIALIAS)\
@@ -52,8 +53,10 @@ def play(file_path):
         stdscr.addstr(max_h-1, 0, 'Resolution:[%d*%d] Frame:%d Time:[%d:%d]' % (max_w, max_h, i, minutes, seconds))
         stdscr.refresh()
 
-        # Adding a delay
-        time.sleep(delay)
+        # Adding a delay if needed
+        real_delay = delay - (time.time() - frame_start_time)
+        if real_delay > 0:
+            time.sleep(real_delay)
 
     curses.endwin()
 
